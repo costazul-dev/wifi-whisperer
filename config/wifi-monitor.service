@@ -1,0 +1,13 @@
+[Unit]
+Description=Wi-Fi Whisperer Capture Service
+After=network.target
+
+[Service]
+Type=simple
+ExecStartPre=/home/pi/wifi-whisperer/scripts/start-monitor-mode.sh
+ExecStart=/usr/sbin/airodump-ng wlan1 --write-interval 300 --write /var/spool/wifi-monitor/data/capture --output-format csv
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
